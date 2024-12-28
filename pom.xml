@@ -491,6 +491,35 @@
                 <plugin>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${shade.plugin.version}</version>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.jetbrains.kotlin:kotlin-stdlib</include>
+                                    <include>org.jetbrains.kotlin:kotlin-stdlib-common</include>
+                                    <include>org.jetbrains.kotlin:kotlin-stdlib-jdk7</include>
+                                    <include>org.jetbrains.kotlin:kotlin-stdlib-jdk8</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>kotlin</pattern>
+                                    <shadedPattern>javalin_shaded_kotlin_runtime</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
